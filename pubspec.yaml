@@ -1,4 +1,4 @@
-name: shz_test_phase
+name: playon
 description: A new Flutter project.
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -34,7 +34,21 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
+  cupertino_icons: ^1.0.5
+  flutter_screenutil: ^5.5.3+2
+  flutter_easyloading: ^3.0.5
+  font_awesome_flutter: ^10.1.0
+  provider: ^6.0.3
+  firebase_auth: ^3.4.2
+  firebase_analytics: ^9.3.0
+  firebase_messaging: ^12.0.1
+  firebase_core: ^1.20.0
+  cloud_firestore: ^3.4.1
+  firebase_storage: ^10.3.3
+  shared_preferences: ^2.0.15
+  permission_handler: ^10.0.0
+  json_annotation: ^4.6.0
+  get_it: ^7.2.0
 
 dev_dependencies:
   flutter_test:
