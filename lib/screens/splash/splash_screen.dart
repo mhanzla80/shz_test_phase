@@ -13,10 +13,8 @@ class SplashScreen extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset('assets/splash.png', width: 0.8.sw),
-            const VerticalSpacing(of: 40),
-            const LoadingDataWidget(),
+          children: const [
+            LoadingDataWidget(),
           ],
         ),
       ),

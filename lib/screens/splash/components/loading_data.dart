@@ -1,4 +1,3 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:playon/all_screens.dart';
 import 'package:playon/all_utils.dart';
 
@@ -17,16 +16,7 @@ class _LoadingDataWidgetState extends State<LoadingDataWidget> {
   }
 
   void _initializeEveryThing() async {
-    final userProvider = context.read<UserProvider>();
     try {
-      // Requesting push notifications
-      FirebaseMessaging.instance.requestPermission(
-        sound: true,
-        badge: true,
-        alert: true,
-        provisional: false,
-      );
-
       const imgSources = [];
       final assetPictures = imgSources.map((imgSrc) =>
           precacheImage(AssetImage('assets/images/$imgSrc.png'), context));
