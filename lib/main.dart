@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:playon/all_screens.dart';
 import 'package:playon/all_utils.dart';
-import 'package:playon/providers/generate_cv_provider.dart';
+import 'package:playon/providers/add_data_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,7 +31,7 @@ class PlayOn extends StatelessWidget {
           return MultiProvider(
             providers: [
               ListenableProvider(create: (_) => UserProvider()),
-              ListenableProvider(create: (_) => ChildrenDataProvider()),
+              ListenableProvider(create: (_) => AddDataProvider()),
             ],
             child: MediaQuery(
               data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),

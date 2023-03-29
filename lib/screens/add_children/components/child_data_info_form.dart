@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:playon/providers/generate_cv_provider.dart';
+import 'package:playon/providers/add_data_provider.dart';
 import 'package:playon/widgets/labeled_text_field.dart';
 import 'package:playon/widgets/my_elevated_button.dart';
 import 'package:provider/provider.dart';
@@ -43,7 +43,7 @@ class _ChildDataFormState extends State<ChildDataForm> {
         children: [
           const SizedBox(height: 20),
           Text(
-            'Personal Information',
+            'Child Information',
             style: Theme.of(context)
                 .textTheme
                 .titleLarge!
@@ -128,10 +128,10 @@ class _ChildDataFormState extends State<ChildDataForm> {
     );
   }
 
-  Future<void> _onTapMoveToNext() async {
-    final provider = context.read<ChildrenDataProvider>();
+  void _onTapMoveToNext() async {
+    final provider = context.read<AddDataProvider>();
     if (_formKey.currentState!.validate()) {
-      await provider.addChildToDB(
+      final isSuccessful = await provider.addChildToDB(
         _firstNameController.text,
         _lastNameController.text,
         _emailController.text,
@@ -140,7 +140,7 @@ class _ChildDataFormState extends State<ChildDataForm> {
         _ageController.text,
         _aboutYou.text,
       );
+      if (mounted && isSuccessful) Navigator.pop(context);
     }
-    if (mounted) Navigator.pop(context);
   }
 }
