@@ -12,7 +12,6 @@ export 'package:playon/models/local_user.dart';
 export 'package:playon/providers/user_provider.dart';
 export 'package:playon/utils/app_theme.dart';
 export 'package:playon/utils/constants.dart';
-export 'package:playon/utils/enums/user_role.dart';
 export 'package:playon/utils/my_extensions.dart';
 export 'package:playon/utils/repositories/user/user_api.dart';
 export 'package:playon/utils/repositories/user/user_repository.dart';

@@ -128,17 +128,19 @@ class _ChildDataFormState extends State<ChildDataForm> {
     );
   }
 
-  void _onTapMoveToNext() {
+  Future<void> _onTapMoveToNext() async {
     final provider = context.read<ChildrenDataProvider>();
     if (_formKey.currentState!.validate()) {
-      provider.storePersonalInfoFormStep1(
-          _firstNameController.text,
-          _lastNameController.text,
-          _emailController.text,
-          _phoneController.text,
-          _addressController.text,
-          _ageController.text,
-          _aboutYou.text);
+      await provider.addChildToDB(
+        _firstNameController.text,
+        _lastNameController.text,
+        _emailController.text,
+        _phoneController.text,
+        _addressController.text,
+        _ageController.text,
+        _aboutYou.text,
+      );
     }
+    if (mounted) Navigator.pop(context);
   }
 }
