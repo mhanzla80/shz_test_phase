@@ -19,7 +19,7 @@ class BaseScaffold extends StatelessWidget {
           final FocusScopeNode currentFocus = FocusScope.of(context);
           if (!currentFocus.hasPrimaryFocus) currentFocus.unfocus();
         },
-        child: body,
+        child: SafeArea(child: body),
       ),
     );
   }

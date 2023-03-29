@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:playon/all_screens.dart';
 import 'package:playon/all_utils.dart';
+import 'package:playon/widgets/my_elevated_button.dart';
 
 class SignupButton extends StatelessWidget {
   final GlobalKey<FormState> formKey;
@@ -23,9 +24,8 @@ class SignupButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MyElevatedButton(
-      'Signup',
-      onTap: _onTapSignupButton,
-      width: double.infinity,
+      title: 'Signup',
+      onTap: () => _onTapSignupButton(context),
     );
   }
 

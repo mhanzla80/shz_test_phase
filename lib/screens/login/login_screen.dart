@@ -28,46 +28,44 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: BaseScaffold(
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(kDefaultPadding),
-            child: Column(
-              children: [
-                const AlignedTextButton(onTap: _onTapSignup, title: 'Signup'),
-                const VerticalSpacing(of: 50),
-                const HeaderText(
-                    header: 'Welcome Back',
-                    subtitle: 'Please login to continue'),
-                const VerticalSpacing(of: 50),
-                Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      LabeledTextField(
-                        controller: _emailController,
-                        label: 'Email',
-                        keyboardType: TextInputType.emailAddress,
-                      ),
-                      const VerticalSpacing(),
-                      LabeledTextField(
-                        controller: _passwordController,
-                        label: 'Password',
-                        obscure: true,
-                      ),
-                    ],
-                  ),
+    return BaseScaffold(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(kDefaultPadding),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const AlignedTextButton(onTap: _onTapSignup, title: 'Signup'),
+              const VerticalSpacing(),
+              const HeaderText(
+                  header: 'Welcome Back', subtitle: 'Please login to continue'),
+              const VerticalSpacing(),
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    LabeledTextField(
+                      controller: _emailController,
+                      label: 'Email',
+                      keyboardType: TextInputType.emailAddress,
+                    ),
+                    const VerticalSpacing(),
+                    LabeledTextField(
+                      controller: _passwordController,
+                      label: 'Password',
+                      obscure: true,
+                    ),
+                  ],
                 ),
-                const VerticalSpacing(of: 30),
-                LoginButton(
-                  formKey: _formKey,
-                  emailController: _emailController,
-                  passwordController: _passwordController,
-                ),
-                const VerticalSpacing(of: kDefaultPadding * 2),
-              ],
-            ),
+              ),
+              const VerticalSpacing(of: 30),
+              LoginButton(
+                formKey: _formKey,
+                emailController: _emailController,
+                passwordController: _passwordController,
+              ),
+              const VerticalSpacing(of: kDefaultPadding * 2),
+            ],
           ),
         ),
       ),

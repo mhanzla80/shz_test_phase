@@ -1,9 +1,11 @@
-import 'package:flutter/material.dart';
+import 'package:playon/all_utils.dart';
 import 'package:playon/screens/add_children/children_data_entry_screen.dart';
 import 'package:playon/screens/add_hospital/hospital_data_entry_screen.dart';
 import 'package:playon/screens/book_appointment/book_appointment_screen.dart';
+import 'package:playon/screens/login/login_screen.dart';
 import 'package:playon/screens/tab/components/add_floating_action_button.dart';
 import 'package:playon/screens/tab/components/my_bottom_navigation_bar.dart';
+import 'package:playon/widgets/my_elevated_button.dart';
 
 class TabScreen extends StatefulWidget {
   static const String routeName = "/TabScreen";
@@ -16,17 +18,27 @@ class TabScreen extends StatefulWidget {
 class _TabScreenState extends State<TabScreen> {
   int _selectedIndex = 0;
 
-  final List<Widget> tabWidget = [
-    const SizedBox(),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: IndexedStack(
           index: _selectedIndex,
-          children: tabWidget,
+          children: [
+            const SizedBox(),
+            Center(
+              child: MyElevatedButton(
+                onTap: () async {
+                  await context.read<UserProvider>().logout();
+                  if (mounted) {
+                    Navigator.pushReplacementNamed(
+                        context, LoginScreen.routeName);
+                  }
+                },
+                title: 'Logout',
+              ),
+            ),
+          ],
         ),
       ),
       bottomNavigationBar: MyBottomNavigationBar(

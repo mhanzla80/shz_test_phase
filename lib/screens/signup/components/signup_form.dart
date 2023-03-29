@@ -1,4 +1,6 @@
 import 'package:playon/all_utils.dart';
+import 'package:playon/screens/login/login_screen.dart';
+import 'package:playon/screens/signup/components/aligned_text_button.dart';
 import 'package:playon/screens/signup/components/signup_button.dart';
 import 'package:playon/widgets/labeled_text_field.dart';
 
@@ -35,10 +37,18 @@ class _SignupFormState extends State<SignupForm> {
       child: ListView(
         padding: const EdgeInsets.all(kDefaultPadding),
         children: [
-          'Let\'s Get Started!!!'.toText(fontSize: 32.0),
-          'Create an account to continue'
-              .toText(fontSize: 17.0, color: AppTheme.lightBlueGreyColor),
-          const VerticalSpacing(of: 50),
+          const AlignedTextButton(title: 'Login', onTap: _onTapLogin),
+          const VerticalSpacing(),
+          Align(
+            alignment: Alignment.center,
+            child: 'Let\'s Get Started!!!'.toText(fontSize: 32.0),
+          ),
+          Align(
+            alignment: Alignment.center,
+            child: 'Create an account to continue'
+                .toText(fontSize: 17.0, color: AppTheme.lightBlueGreyColor),
+          ),
+          const VerticalSpacing(),
           LabeledTextField(controller: _nameController, label: 'Name'),
           const VerticalSpacing(of: 30),
           LabeledTextField(
@@ -77,4 +87,7 @@ class _SignupFormState extends State<SignupForm> {
       ),
     );
   }
+
+  static void _onTapLogin(BuildContext context) =>
+      Navigator.pushReplacementNamed(context, LoginScreen.routeName);
 }
