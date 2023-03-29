@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:playon/screens/add_children/children_data_entry_screen.dart';
 import 'package:playon/screens/add_hospital/hospital_data_entry_screen.dart';
+import 'package:playon/screens/book_appointment/book_appointment_screen.dart';
 import 'package:playon/screens/tab/components/add_floating_action_button.dart';
 import 'package:playon/screens/tab/components/my_bottom_navigation_bar.dart';
 
@@ -60,6 +61,13 @@ class _TabScreenState extends State<TabScreen> {
                 title: const Text('Add Hospital'),
                 onTap: () =>
                     Navigator.pushNamed(context, AddHospitalScreen.routeName),
+              ),
+              const Divider(),
+              ListTile(
+                leading: const Icon(Icons.bookmark_added_rounded),
+                title: const Text('Book Appointment'),
+                onTap: () => Navigator.pushNamed(
+                    context, BookAppointmentScreen.routeName),
               ),
             ],
           ),

@@ -1,5 +1,6 @@
 import 'package:playon/all_screens.dart';
 import 'package:playon/all_utils.dart';
+import 'package:playon/providers/add_data_provider.dart';
 
 class LoadingDataWidget extends StatefulWidget {
   const LoadingDataWidget({super.key});
@@ -16,6 +17,10 @@ class _LoadingDataWidgetState extends State<LoadingDataWidget> {
   }
 
   void _initializeEveryThing() async {
+    final provider = context.read<AddDataProvider>();
+    provider.allChildren = await provider.getAllChildren();
+    provider.allHospitals = await provider.getAllHospitals();
+
     try {
       const imgSources = [];
       final assetPictures = imgSources.map((imgSrc) =>
