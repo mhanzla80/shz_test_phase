@@ -4,6 +4,8 @@ import 'package:playon/all_utils.dart';
 class AddDataProvider extends ChangeNotifier {
   final _children = FirebaseFirestore.instance.collection('children');
   final _hospitals = FirebaseFirestore.instance.collection('hospitals');
+  final _bookAppointment =
+      FirebaseFirestore.instance.collection('appointments');
   List<String>? allChildren;
   List<String>? allHospitals;
 
@@ -79,9 +81,10 @@ class AddDataProvider extends ChangeNotifier {
 
   Future<bool> bookAppointment(String childName, String hospital) async {
     EasyLoading.show();
-    await _hospitals.add({
+    await _bookAppointment.add({
       'childName': childName,
       'hospital': hospital,
+      'parentName': PrefsStorage.instance.user?.name,
       'phoneNo': PrefsStorage.instance.user?.phone,
       'reference': PrefsStorage.instance.user?.email,
     }).then((value) {

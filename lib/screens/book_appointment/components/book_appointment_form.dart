@@ -47,15 +47,15 @@ class _BookAppointmentFormState extends State<BookAppointmentForm> {
             value: _selectedChildName,
             items: context
                 .read<AddDataProvider>()
-                .allHospitals
+                .allChildren
                 ?.map((d) => DropdownMenuItem(
                       value: d,
                       child: Text(d),
                     ))
                 .toList(),
             onChanged: (val) => setState(() {
-              _childNameController.text = val ?? '';
               _selectedChildName = val ?? '';
+              _childNameController.text = val ?? '';
             }),
           ),
           const SizedBox(height: 20),
@@ -72,8 +72,8 @@ class _BookAppointmentFormState extends State<BookAppointmentForm> {
                     ))
                 .toList(),
             onChanged: (val) => setState(() {
-              _hospitalNameController.text = val ?? '';
               _selectedHospitalName = val ?? '';
+              _hospitalNameController.text = val ?? '';
             }),
           ),
           const SizedBox(height: 20),
@@ -87,7 +87,7 @@ class _BookAppointmentFormState extends State<BookAppointmentForm> {
     final provider = context.read<AddDataProvider>();
     if (_formKey.currentState!.validate()) {
       final isSuccessful = await provider.bookAppointment(
-        _hospitalNameController.text,
+        _childNameController.text,
         _hospitalNameController.text,
       );
       if (mounted && isSuccessful) Navigator.pop(context);
