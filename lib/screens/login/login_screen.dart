@@ -2,8 +2,8 @@ import 'package:playon/all_screens.dart';
 import 'package:playon/all_utils.dart';
 import 'package:playon/screens/login/components/login_button.dart';
 import 'package:playon/screens/signup/components/aligned_text_button.dart';
-import 'package:playon/screens/signup/components/caption_text_field.dart';
 import 'package:playon/widgets/header_text.dart';
+import 'package:playon/widgets/labeled_text_field.dart';
 
 class LoginScreen extends StatefulWidget {
   static const routeName = '/LoginScreen';
@@ -15,6 +15,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -40,19 +41,27 @@ class _LoginScreenState extends State<LoginScreen> {
                     header: 'Welcome Back',
                     subtitle: 'Please login to continue'),
                 const VerticalSpacing(of: 50),
-                CaptionTextField(
-                  controller: _emailController,
-                  caption: 'Email',
-                  keyboardType: TextInputType.emailAddress,
-                ),
-                const VerticalSpacing(),
-                CaptionTextField(
-                  controller: _passwordController,
-                  caption: 'Password',
-                  obscure: true,
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      LabeledTextField(
+                        controller: _emailController,
+                        label: 'Email',
+                        keyboardType: TextInputType.emailAddress,
+                      ),
+                      const VerticalSpacing(),
+                      LabeledTextField(
+                        controller: _passwordController,
+                        label: 'Password',
+                        obscure: true,
+                      ),
+                    ],
+                  ),
                 ),
                 const VerticalSpacing(of: 30),
                 LoginButton(
+                  formKey: _formKey,
                   emailController: _emailController,
                   passwordController: _passwordController,
                 ),

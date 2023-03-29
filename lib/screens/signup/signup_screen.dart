@@ -15,23 +15,19 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        maintainBottomViewPadding: true,
-        child: BaseScaffold(
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(kDefaultPadding),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  const AlignedTextButton(title: 'Login', onTap: _onTapLogin),
-                  const VerticalSpacing(of: 50),
-                  const SignupForm(),
-                  const VerticalSpacing(of: 30),
-                ],
-              ),
-            ),
-          ),
-        ));
+      maintainBottomViewPadding: true,
+      child: BaseScaffold(
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: const [
+            AlignedTextButton(title: 'Login', onTap: _onTapLogin),
+            VerticalSpacing(of: 50),
+            SignupForm(),
+            VerticalSpacing(of: 30),
+          ],
+        ),
+      ),
+    );
   }
 
   static void _onTapLogin(BuildContext context) =>

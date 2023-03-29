@@ -14,20 +14,43 @@ class AppTheme {
   static const warmGrey = Color(0xff979797);
 
   static ThemeData buildTheme() {
+    final borderStyle = OutlineInputBorder(
+      borderSide: const BorderSide(color: AppTheme.primary),
+      borderRadius: BorderRadius.circular(8),
+    );
+
     final baseData = ThemeData.light();
     final textTheme = baseData.textTheme.apply(fontFamily: 'BerlinRounded');
-    final dividerTheme = baseData.dividerTheme.copyWith(
-      color: AppTheme.lightBlueGreyColor,
-      thickness: 1,
-    );
 
     return baseData.copyWith(
       primaryColor: primary,
-      dividerTheme: dividerTheme,
-      backgroundColor: whiteColor,
       scaffoldBackgroundColor: whiteColor,
       textTheme: textTheme,
-      colorScheme: ColorScheme.fromSwatch().copyWith(secondary: accent),
+      inputDecorationTheme: InputDecorationTheme(
+        isDense: true,
+        filled: true,
+        fillColor: Colors.white,
+        hintStyle: baseData.textTheme.bodySmall,
+        enabledBorder: borderStyle,
+        focusedBorder: borderStyle,
+        focusedErrorBorder: borderStyle,
+        counterStyle: baseData.textTheme.bodySmall,
+        errorStyle: baseData.textTheme.bodySmall!.copyWith(color: Colors.red),
+        errorBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Colors.red),
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.zero,
+          backgroundColor: Colors.transparent,
+          disabledForegroundColor: Colors.transparent,
+          disabledBackgroundColor: Colors.transparent,
+          shadowColor: Colors.transparent,
+          elevation: 0,
+        ),
+      ),
     );
   }
 }
