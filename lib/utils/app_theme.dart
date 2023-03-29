@@ -26,6 +26,7 @@ class AppTheme {
       primaryColor: primary,
       scaffoldBackgroundColor: whiteColor,
       textTheme: textTheme,
+      appBarTheme: const AppBarTheme(color: primary),
       inputDecorationTheme: InputDecorationTheme(
         isDense: true,
         filled: true,
@@ -43,13 +44,7 @@ class AppTheme {
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.zero,
-          backgroundColor: Colors.transparent,
-          disabledForegroundColor: Colors.transparent,
-          disabledBackgroundColor: Colors.transparent,
-          shadowColor: Colors.transparent,
-          elevation: 0,
-        ),
+            padding: EdgeInsets.zero, backgroundColor: primary),
       ),
     );
   }

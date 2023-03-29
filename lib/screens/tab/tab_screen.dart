@@ -1,53 +1,48 @@
-import 'package:playon/all_utils.dart';
-import 'package:playon/screens/tab/components/notched_bottom_navigation_bar.dart';
+import 'package:flutter/material.dart';
+import 'package:playon/screens/add_children_data/children_data_entry_screen.dart';
+import 'package:playon/screens/tab/components/add_floating_action_button.dart';
+import 'package:playon/screens/tab/components/my_bottom_navigation_bar.dart';
 
 class TabScreen extends StatefulWidget {
-  static const String routeName = '/TabScreen';
-
-  const TabScreen();
+  static const String routeName = "/TabScreen";
+  const TabScreen({Key? key}) : super(key: key);
 
   @override
-  _TabScreenState createState() => _TabScreenState();
+  State<TabScreen> createState() => _TabScreenState();
 }
 
-class _TabScreenState extends State<TabScreen> with WidgetsBindingObserver {
+class _TabScreenState extends State<TabScreen> {
   int _selectedIndex = 0;
-  final List<Widget> tabWidgets = [
-    const SizedBox(),
-    const SizedBox(),
-    const SizedBox(),
+
+  final List<Widget> tabWidget = [
     const SizedBox(),
   ];
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        top: false,
         child: IndexedStack(
           index: _selectedIndex,
-          children: tabWidgets,
+          children: tabWidget,
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: NotchedBottomNavigationBar(
-        onItemTapped: _onItemTapped,
-        selectedIndex: _selectedIndex,
+      bottomNavigationBar: MyBottomNavigationBar(
+        isSelectedIndex: _selectedIndex,
+        onItemTapped: _onItemTap,
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _openBottomSheet,
+        child: const AddFileFloatingActionButton(),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 
-  void _onItemTapped(int index) => setState(() => _selectedIndex = index);
+  void _onItemTap(int index) {
+    setState(() => _selectedIndex = index);
+  }
+
+  void _openBottomSheet() =>
+      Navigator.of(context).pushNamed(CVGeneratorScreen.routeName);
 }

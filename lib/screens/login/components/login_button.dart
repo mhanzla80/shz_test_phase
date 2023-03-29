@@ -40,10 +40,6 @@ class LoginButton extends StatelessWidget {
               email: user.email,
               name: user.name,
               phone: user.phone,
-              imagePath: user.imagePath,
-              gamesPlayed: user.gamesPlayed,
-              hoursPlayed: user.hoursPlayed,
-              score: user.score,
             );
             final provider = context.read<UserProvider>();
             userRepository.update(user.email, {});
