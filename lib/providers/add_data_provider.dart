@@ -85,10 +85,10 @@ class AddDataProvider extends ChangeNotifier {
       'phoneNo': PrefsStorage.instance.user?.phone,
       'reference': PrefsStorage.instance.user?.email,
     }).then((value) {
-      EasyLoading.showSuccess("Hospital data Added");
+      EasyLoading.showSuccess("Appointment Booked Successfully");
       return true;
     }).catchError((error) {
-      EasyLoading.showError("Hospital couldn't be added.\n${error.toString()}");
+      EasyLoading.showError("Appointment failed to Book.\n${error.toString()}");
       return false;
     });
     return false;
