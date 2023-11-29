@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:playon/models/child_data_model.dart';
-import 'package:playon/utils/storage/prefs_storage.dart';
+import 'package:playon/models/hospital.dart';
 
 class ViewHospitalsScreen extends StatelessWidget {
   static const String routeName = "/ViewHospitalsScreen";
@@ -14,8 +13,8 @@ class ViewHospitalsScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Hospitals'),
       ),
-      body: FutureBuilder<List<ChildDataModel>>(
-        future: _getChildren(),
+      body: FutureBuilder<List<Hospital>>(
+        future: _getHospital(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasError) {
@@ -35,7 +34,7 @@ class ViewHospitalsScreen extends StatelessWidget {
                 itemBuilder: (ctx, index) {
                   return Card(
                     child: ListTile(
-                      title: Text(data[index].firstName ?? ''),
+                      title: Text(data[index].hospitalName),
                     ),
                   );
                 },
@@ -55,24 +54,21 @@ class ViewHospitalsScreen extends StatelessWidget {
     );
   }
 
-  Future<List<ChildDataModel>> _getChildren() async {
+  Future<List<Hospital>> _getHospital() async {
     // Reference to your Firestore collection
     final childrenCollection =
-        FirebaseFirestore.instance.collection('children');
+        FirebaseFirestore.instance.collection('hospitals');
 
-    // Query to retrieve children where the 'email' field matches the provided email
-    final querySnapshot = await childrenCollection
-        .where('reference', isEqualTo: PrefsStorage.instance.user?.email)
-        .get();
+    final querySnapshot = await childrenCollection.get();
 
     // Process the retrieved documents
     final children = querySnapshot.docs;
 
-    final List<ChildDataModel> childrenList = [];
+    final List<Hospital> childrenList = [];
     for (var child in children) {
       // Access data within each document
       final data = child.data();
-      childrenList.add(ChildDataModel.fromJson(data));
+      childrenList.add(Hospital.fromJson(data));
       // Do something with the data
       print('Child: ${data.toString()}');
     }

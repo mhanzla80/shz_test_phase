@@ -34,7 +34,7 @@ class ViewChildrenScreen extends StatelessWidget {
                 itemBuilder: (ctx, index) {
                   return Card(
                     child: ListTile(
-                      title: Text(data[index].firstName ?? ''),
+                      title: Text(data[index].firstName),
                     ),
                   );
                 },

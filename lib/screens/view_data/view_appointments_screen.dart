@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:playon/models/child_data_model.dart';
+import 'package:playon/models/appointment.dart';
 import 'package:playon/utils/storage/prefs_storage.dart';
 
 class ViewAppointmentsScreen extends StatelessWidget {
@@ -20,8 +20,8 @@ class ViewAppointmentsScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: FutureBuilder<List<ChildDataModel>>(
-        future: _getChildren(),
+      body: FutureBuilder<List<Appointment>>(
+        future: _getAppointments(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasError) {
@@ -41,7 +41,7 @@ class ViewAppointmentsScreen extends StatelessWidget {
                 itemBuilder: (ctx, index) {
                   return Card(
                     child: ListTile(
-                      title: Text(data[index].firstName ?? ''),
+                      title: Text(data[index].childName),
                     ),
                   );
                 },
@@ -61,10 +61,10 @@ class ViewAppointmentsScreen extends StatelessWidget {
     );
   }
 
-  Future<List<ChildDataModel>> _getChildren() async {
+  Future<List<Appointment>> _getAppointments() async {
     // Reference to your Firestore collection
     final childrenCollection =
-        FirebaseFirestore.instance.collection('children');
+        FirebaseFirestore.instance.collection('appointments');
 
     // Query to retrieve children where the 'email' field matches the provided email
     final querySnapshot = await childrenCollection
@@ -74,11 +74,11 @@ class ViewAppointmentsScreen extends StatelessWidget {
     // Process the retrieved documents
     final children = querySnapshot.docs;
 
-    final List<ChildDataModel> childrenList = [];
+    final List<Appointment> childrenList = [];
     for (var child in children) {
       // Access data within each document
       final data = child.data();
-      childrenList.add(ChildDataModel.fromJson(data));
+      childrenList.add(Appointment.fromJson(data));
       // Do something with the data
       print('Child: ${data.toString()}');
     }
