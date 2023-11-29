@@ -5,6 +5,7 @@ import 'package:playon/screens/book_appointment/book_appointment_screen.dart';
 import 'package:playon/screens/login/login_screen.dart';
 import 'package:playon/screens/tab/components/add_floating_action_button.dart';
 import 'package:playon/screens/tab/components/my_bottom_navigation_bar.dart';
+import 'package:playon/screens/view_data/view_children_screen.dart';
 import 'package:playon/widgets/my_elevated_button.dart';
 
 class TabScreen extends StatefulWidget {
@@ -25,7 +26,7 @@ class _TabScreenState extends State<TabScreen> {
         child: IndexedStack(
           index: _selectedIndex,
           children: [
-            const SizedBox(),
+            const HomeScreen(),
             Center(
               child: MyElevatedButton(
                 onTap: () async {
@@ -85,4 +86,48 @@ class _TabScreenState extends State<TabScreen> {
           ),
         ),
       );
+}
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Card(
+        margin: const EdgeInsets.all(20),
+        color: Colors.grey.shade200,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: ListTile.divideTiles(
+            context: context,
+            color: Colors.grey,
+            tiles: [
+              ListTile(
+                onTap: () {
+                  Navigator.pushNamed(context, ViewChildrenScreen.routeName);
+                },
+                title: const Text('View Children'),
+                trailing: const Icon(Icons.arrow_forward_ios_rounded),
+              ),
+              ListTile(
+                onTap: () {
+                  Navigator.pushNamed(context, LoginScreen.routeName);
+                },
+                title: const Text('View Hospitals'),
+                trailing: const Icon(Icons.arrow_forward_ios_rounded),
+              ),
+              ListTile(
+                onTap: () {
+                  Navigator.pushNamed(context, LoginScreen.routeName);
+                },
+                title: const Text('View Appointments'),
+                trailing: const Icon(Icons.arrow_forward_ios_rounded),
+              ),
+            ],
+          ).toList(),
+        ),
+      ),
+    );
+  }
 }

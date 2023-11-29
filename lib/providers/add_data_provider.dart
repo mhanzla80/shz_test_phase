@@ -48,7 +48,7 @@ class AddDataProvider extends ChangeNotifier {
       'age': age,
       'phoneNo': phoneNo,
       'address': address,
-      'aboutYou': aboutYou,
+      'aboutHim': aboutYou,
       'reference': PrefsStorage.instance.user?.email,
     }).then((value) {
       EasyLoading.showSuccess("Child data Added");
