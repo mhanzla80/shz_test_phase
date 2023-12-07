@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:playon/providers/add_data_provider.dart';
-import 'package:playon/screens/add_hospital/components/hospital_data_info_form.dart';
+import 'package:playon/screens/module_admin/add_children/components/child_data_info_form.dart';
 import 'package:provider/provider.dart';
 
-class AddHospitalScreen extends StatelessWidget {
-  static const String routeName = '/AddHospitalScreen';
-  const AddHospitalScreen({Key? key}) : super(key: key);
+class AddChildScreen extends StatelessWidget {
+  static const String routeName = '/AddChildScreen';
+  const AddChildScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class AddHospitalScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Consumer<AddDataProvider>(
           builder: (_, provider, __) {
-            return const HospitalDataForm();
+            return const ChildDataForm();
           },
         ),
       ),

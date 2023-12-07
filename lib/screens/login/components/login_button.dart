@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:playon/all_screens.dart';
 import 'package:playon/all_utils.dart';
+import 'package:playon/screens/module_admin/tab/admin_tab_screen.dart';
 import 'package:playon/widgets/my_elevated_button.dart';
 
 class LoginButton extends StatelessWidget {
@@ -50,7 +50,7 @@ class LoginButton extends StatelessWidget {
             provider.updateUser(updatedUser);
             EasyLoading.dismiss();
 
-            Navigator.pushReplacementNamed(context, TabScreen.routeName);
+            Navigator.pushReplacementNamed(context, AdminTabScreen.routeName);
           }
         } else {
           EasyLoading.dismiss();
