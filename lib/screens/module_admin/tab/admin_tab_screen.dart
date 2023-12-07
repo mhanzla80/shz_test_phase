@@ -5,9 +5,9 @@ import 'package:playon/screens/module_admin/add_children/children_data_entry_scr
 import 'package:playon/screens/module_admin/add_hospital/hospital_data_entry_screen.dart';
 import 'package:playon/screens/module_admin/tab/components/add_floating_action_button.dart';
 import 'package:playon/screens/module_admin/tab/components/my_bottom_navigation_bar.dart';
-import 'package:playon/screens/view_data/view_appointments_screen.dart';
-import 'package:playon/screens/view_data/view_children_screen.dart';
-import 'package:playon/screens/view_data/view_hospitals_screen.dart';
+import 'package:playon/screens/module_admin/view_data/view_appointments_screen.dart';
+import 'package:playon/screens/module_admin/view_data/view_children_screen.dart';
+import 'package:playon/screens/module_admin/view_data/view_hospitals_screen.dart';
 import 'package:playon/widgets/my_elevated_button.dart';
 
 class AdminTabScreen extends StatefulWidget {
