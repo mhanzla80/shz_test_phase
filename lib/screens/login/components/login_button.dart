@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:playon/all_utils.dart';
+import 'package:playon/models/role.dart';
 import 'package:playon/screens/module_admin/tab/admin_tab_screen.dart';
 import 'package:playon/widgets/my_elevated_button.dart';
 
@@ -44,13 +45,14 @@ class LoginButton extends StatelessWidget {
               email: user.email,
               name: user.name,
               phone: user.phone,
+              role: user.role,
             );
             final provider = context.read<UserProvider>();
             userRepository.update(user.email, {});
             provider.updateUser(updatedUser);
             EasyLoading.dismiss();
-
-            Navigator.pushReplacementNamed(context, AdminTabScreen.routeName);
+            if (updatedUser.role == Role.admin)
+              Navigator.pushReplacementNamed(context, AdminTabScreen.routeName);
           }
         } else {
           EasyLoading.dismiss();

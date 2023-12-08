@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:playon/all_utils.dart';
+import 'package:playon/models/role.dart';
 import 'package:playon/screens/module_admin/tab/admin_tab_screen.dart';
 import 'package:playon/widgets/my_elevated_button.dart';
 
@@ -7,6 +8,7 @@ class SignupButton extends StatelessWidget {
   final GlobalKey<FormState> formKey;
   final TextEditingController nameController;
   final TextEditingController emailController;
+  final Role role;
   final TextEditingController phoneController;
   final TextEditingController passwordController;
   final TextEditingController confirmPasswordController;
@@ -15,6 +17,7 @@ class SignupButton extends StatelessWidget {
     required this.formKey,
     required this.nameController,
     required this.emailController,
+    required this.role,
     required this.phoneController,
     required this.passwordController,
     required this.confirmPasswordController,
@@ -49,12 +52,14 @@ class SignupButton extends StatelessWidget {
               name: nameController.text,
               email: emailController.text,
               phone: phoneController.text,
+              role: role,
             );
             userRepository.add(localUser);
             context.read<UserProvider>().updateUser(localUser);
 
             EasyLoading.dismiss();
-            Navigator.pushReplacementNamed(context, AdminTabScreen.routeName);
+            if (role == Role.admin)
+              Navigator.pushReplacementNamed(context, AdminTabScreen.routeName);
           } else {
             EasyLoading.dismiss();
             EasyLoading.showError('Could not login, please try again.');

@@ -1,4 +1,5 @@
 import 'package:playon/all_utils.dart';
+import 'package:playon/models/role.dart';
 import 'package:playon/screens/login/login_screen.dart';
 import 'package:playon/screens/signup/components/aligned_text_button.dart';
 import 'package:playon/screens/signup/components/signup_button.dart';
@@ -15,14 +16,17 @@ class _SignupFormState extends State<SignupForm> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
+  final _roleController = TextEditingController();
   final _phoneController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+  Role? role;
 
   @override
   void dispose() {
     _nameController.dispose();
     _emailController.dispose();
+    _roleController.dispose();
     _phoneController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
@@ -57,6 +61,21 @@ class _SignupFormState extends State<SignupForm> {
             keyboardType: TextInputType.emailAddress,
           ),
           const VerticalSpacing(of: 30),
+          DropdownButtonFormField<Role>(
+            isDense: true,
+            hint: const Text('Choose a role'),
+            value: role,
+            items: Role.values
+                .map(
+                  (d) => DropdownMenuItem(
+                    value: d,
+                    child: Text(d.name),
+                  ),
+                )
+                .toList(),
+            onChanged: (val) => setState(() => role = val),
+          ),
+          const VerticalSpacing(of: 30),
           LabeledTextField(
             controller: _phoneController,
             label: 'Phone',
@@ -79,6 +98,7 @@ class _SignupFormState extends State<SignupForm> {
             formKey: _formKey,
             nameController: _nameController,
             emailController: _emailController,
+            role: role ?? Role.parent,
             phoneController: _phoneController,
             passwordController: _passwordController,
             confirmPasswordController: _confirmPasswordController,

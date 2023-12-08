@@ -9,6 +9,7 @@ class Hospital {
   final String phoneNo;
   final String address;
   final String aboutHospital;
+  final bool? isAccepted;
 
   const Hospital({
     required this.hospitalName,
@@ -16,6 +17,7 @@ class Hospital {
     required this.phoneNo,
     required this.address,
     required this.aboutHospital,
+    this.isAccepted,
   });
 
   factory Hospital.fromJson(Map<String, dynamic> json) =>

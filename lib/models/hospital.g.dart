@@ -12,6 +12,7 @@ Hospital _$HospitalFromJson(Map<String, dynamic> json) => Hospital(
       phoneNo: json['phoneNo'] as String,
       address: json['address'] as String,
       aboutHospital: json['aboutHospital'] as String,
+      isAccepted: json['isAccepted'] as bool?,
     );
 
 Map<String, dynamic> _$HospitalToJson(Hospital instance) => <String, dynamic>{
@@ -20,4 +21,5 @@ Map<String, dynamic> _$HospitalToJson(Hospital instance) => <String, dynamic>{
       'phoneNo': instance.phoneNo,
       'address': instance.address,
       'aboutHospital': instance.aboutHospital,
+      'isAccepted': instance.isAccepted,
     };
