@@ -7,6 +7,7 @@ part of 'appointment.dart';
 // **************************************************************************
 
 Appointment _$AppointmentFromJson(Map<String, dynamic> json) => Appointment(
+      id: json['id'] as String,
       childName: json['childName'] as String,
       hospital: json['hospital'] as String,
       parentName: json['parentName'] as String,
@@ -16,6 +17,7 @@ Appointment _$AppointmentFromJson(Map<String, dynamic> json) => Appointment(
 
 Map<String, dynamic> _$AppointmentToJson(Appointment instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'childName': instance.childName,
       'hospital': instance.hospital,
       'parentName': instance.parentName,

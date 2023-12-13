@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:playon/models/hospital.dart';
 import 'package:playon/providers/add_data_provider.dart';
 import 'package:playon/widgets/labeled_text_field.dart';
 import 'package:playon/widgets/my_elevated_button.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 
 class HospitalDataForm extends StatefulWidget {
   const HospitalDataForm({Key? key}) : super(key: key);
@@ -96,13 +98,16 @@ class _HospitalDataFormState extends State<HospitalDataForm> {
   void _onTapMoveToNext() async {
     final provider = context.read<AddDataProvider>();
     if (_formKey.currentState!.validate()) {
-      final isSuccessful = await provider.addHospitalToDB(
-        _hospitalNameController.text,
-        _emailController.text,
-        _phoneController.text,
-        _addressController.text,
-        _aboutHospital.text,
+      final uniqueId = const Uuid().v4();
+      final hospital = Hospital(
+        id: uniqueId,
+        hospitalName: _hospitalNameController.text,
+        email: _emailController.text,
+        phoneNo: _phoneController.text,
+        address: _addressController.text,
+        aboutHospital: _aboutHospital.text,
       );
+      final isSuccessful = await provider.addHospitalToDB(hospital);
       if (mounted && isSuccessful) Navigator.pop(context);
     }
   }

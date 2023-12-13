@@ -4,6 +4,7 @@ part 'appointment.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class Appointment {
+  final String id;
   final String childName;
   final String hospital;
   final String parentName;
@@ -11,6 +12,7 @@ class Appointment {
   final String reference;
 
   const Appointment({
+    required this.id,
     required this.childName,
     required this.hospital,
     required this.parentName,

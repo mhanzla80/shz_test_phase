@@ -4,6 +4,7 @@ part 'hospital.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class Hospital {
+  final String id;
   final String hospitalName;
   final String email;
   final String phoneNo;
@@ -12,6 +13,7 @@ class Hospital {
   final bool? isAccepted;
 
   const Hospital({
+    required this.id,
     required this.hospitalName,
     required this.email,
     required this.phoneNo,

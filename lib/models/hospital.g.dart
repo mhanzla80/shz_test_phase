@@ -7,6 +7,7 @@ part of 'hospital.dart';
 // **************************************************************************
 
 Hospital _$HospitalFromJson(Map<String, dynamic> json) => Hospital(
+      id: json['id'] as String,
       hospitalName: json['hospitalName'] as String,
       email: json['email'] as String,
       phoneNo: json['phoneNo'] as String,
@@ -16,6 +17,7 @@ Hospital _$HospitalFromJson(Map<String, dynamic> json) => Hospital(
     );
 
 Map<String, dynamic> _$HospitalToJson(Hospital instance) => <String, dynamic>{
+      'id': instance.id,
       'hospitalName': instance.hospitalName,
       'email': instance.email,
       'phoneNo': instance.phoneNo,

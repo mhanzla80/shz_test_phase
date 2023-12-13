@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
+import 'package:playon/all_utils.dart';
 import 'package:playon/models/hospital.dart';
+import 'package:playon/models/role.dart';
+import 'package:playon/providers/add_data_provider.dart';
 
 class ViewHospitalsScreen extends StatelessWidget {
   static const String routeName = "/ViewHospitalsScreen";
@@ -10,9 +12,7 @@ class ViewHospitalsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Hospitals'),
-      ),
+      appBar: AppBar(title: const Text('Hospitals')),
       body: FutureBuilder<List<Hospital>>(
         future: _getHospital(),
         builder: (context, snapshot) {
@@ -33,8 +33,9 @@ class ViewHospitalsScreen extends StatelessWidget {
                 itemCount: data.length,
                 itemBuilder: (ctx, index) {
                   return Card(
-                    child: ListTile(
+                    child: ExpansionTile(
                       title: Text(data[index].hospitalName),
+                      children: _adminSpecific(context, data[index]),
                     ),
                   );
                 },
@@ -52,6 +53,32 @@ class ViewHospitalsScreen extends StatelessWidget {
         },
       ),
     );
+  }
+
+  List<Widget> _adminSpecific(BuildContext context, Hospital hospital) {
+    final user = context.read<UserProvider>().user;
+    final provider = context.read<AddDataProvider>();
+
+    if (user != null && user.role == Role.admin) {
+      return [
+        Row(
+          children: [
+            ElevatedButton(
+              onPressed: () => provider.acceptHospital(hospital),
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+              child: const Text('Accept'),
+            ),
+            ElevatedButton(
+              onPressed: () => provider.acceptHospital(hospital),
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+              child: const Text('Reject'),
+            ),
+          ],
+        ),
+      ];
+    }
+
+    return [];
   }
 
   Future<List<Hospital>> _getHospital() async {

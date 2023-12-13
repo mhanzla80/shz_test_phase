@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:playon/models/child_data_model.dart';
 import 'package:playon/providers/add_data_provider.dart';
+import 'package:playon/utils/storage/prefs_storage.dart';
 import 'package:playon/widgets/labeled_text_field.dart';
 import 'package:playon/widgets/my_elevated_button.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 
 class ChildDataForm extends StatefulWidget {
   const ChildDataForm({Key? key}) : super(key: key);
@@ -131,15 +134,20 @@ class _ChildDataFormState extends State<ChildDataForm> {
   void _onTapMoveToNext() async {
     final provider = context.read<AddDataProvider>();
     if (_formKey.currentState!.validate()) {
-      final isSuccessful = await provider.addChildToDB(
-        _firstNameController.text,
-        _lastNameController.text,
-        _emailController.text,
-        _phoneController.text,
-        _addressController.text,
-        _ageController.text,
-        _aboutYou.text,
+      final uniqueId = const Uuid().v4();
+      final childData = ChildDataModel(
+        id: uniqueId,
+        firstName: _firstNameController.text,
+        lastName: _lastNameController.text,
+        email: _emailController.text,
+        phoneNo: _phoneController.text,
+        address: _addressController.text,
+        age: _ageController.text,
+        aboutHim: _aboutYou.text,
+        parentEmail: PrefsStorage.instance.user!.email,
       );
+
+      final isSuccessful = await provider.addChildToDB(childData);
       if (mounted && isSuccessful) Navigator.pop(context);
     }
   }

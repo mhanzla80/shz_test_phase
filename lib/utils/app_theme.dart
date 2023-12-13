@@ -44,7 +44,10 @@ class AppTheme {
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.zero, backgroundColor: primary),
+          padding: EdgeInsets.zero,
+          backgroundColor: primary,
+          foregroundColor: whiteColor,
+        ),
       ),
     );
   }

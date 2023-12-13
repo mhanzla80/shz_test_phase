@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:playon/models/appointment.dart';
 import 'package:playon/providers/add_data_provider.dart';
+import 'package:playon/utils/storage/prefs_storage.dart';
 import 'package:playon/widgets/my_elevated_button.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 
 class BookAppointmentForm extends StatefulWidget {
   const BookAppointmentForm({Key? key}) : super(key: key);
@@ -86,10 +89,16 @@ class _BookAppointmentFormState extends State<BookAppointmentForm> {
   void _onTapMoveToNext() async {
     final provider = context.read<AddDataProvider>();
     if (_formKey.currentState!.validate()) {
-      final isSuccessful = await provider.bookAppointment(
-        _childNameController.text,
-        _hospitalNameController.text,
+      final uniqueId = const Uuid().v4();
+      final appointment = Appointment(
+        id: uniqueId,
+        childName: _childNameController.text,
+        hospital: _hospitalNameController.text,
+        parentName: PrefsStorage.instance.user?.name ?? '',
+        phoneNo: PrefsStorage.instance.user?.phone ?? '',
+        reference: PrefsStorage.instance.user?.email ?? '',
       );
+      final isSuccessful = await provider.bookAppointment(appointment);
       if (mounted && isSuccessful) Navigator.pop(context);
     }
   }
