@@ -3,6 +3,7 @@ import 'package:playon/all_utils.dart';
 import 'package:playon/models/appointment.dart';
 import 'package:playon/models/child_data_model.dart';
 import 'package:playon/models/hospital.dart';
+import 'package:playon/models/role.dart';
 
 class AddDataProvider extends ChangeNotifier {
   final _children = FirebaseFirestore.instance
@@ -27,32 +28,43 @@ class AddDataProvider extends ChangeNotifier {
         toFirestore: (appointment, _) => appointment.toJson(),
       );
 
-  List<String>? allChildren;
-  List<String>? allHospitals;
+  List<ChildDataModel>? allChildren;
+  List<Hospital>? allHospitals;
 
-  Future<List<String>?> getAllHospitals() async {
+  Future<List<Hospital>?> getAllHospitals() async {
     final snapshot = await _hospitals.get();
     final docs = snapshot.docs;
     if (docs.isNotEmpty) {
-      final List<String> hospitals = [];
+      final List<Hospital> hospitals = [];
       for (int i = 0; i < docs.length; i++) {
-        hospitals.add(docs[i].data().hospitalName);
+        hospitals.add(docs[i].data());
       }
       return hospitals;
     }
     return null;
   }
 
-  Future<List<String>?> getAllChildren() async {
+  Future<List<ChildDataModel>?> getAllChildren() async {
+    final isAdmin = PrefsStorage.instance.user?.role == Role.admin;
+    final List<ChildDataModel> children = [];
+
     final snapshot = await _children.get();
+    if (isAdmin) {
+      final docs = snapshot.docs;
+      for (int i = 0; i < docs.length; i++) {
+        children.add(docs[i].data());
+      }
+      return children;
+    }
+
     final docs = snapshot.docs
         .where((element) =>
             element.data().parentEmail == PrefsStorage.instance.user?.email)
         .toList();
+
     if (docs.isNotEmpty) {
-      final List<String> children = [];
       for (int i = 0; i < docs.length; i++) {
-        children.add(docs[i].data().firstName);
+        children.add(docs[i].data());
       }
       return children;
     }

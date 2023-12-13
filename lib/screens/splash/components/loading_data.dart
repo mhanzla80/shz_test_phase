@@ -23,11 +23,6 @@ class _LoadingDataWidgetState extends State<LoadingDataWidget> {
     provider.allHospitals = await provider.getAllHospitals();
 
     try {
-      const imgSources = [];
-      final assetPictures = imgSources.map((imgSrc) =>
-          precacheImage(AssetImage('assets/images/$imgSrc.png'), context));
-      await Future.wait(assetPictures);
-
       _moveToNextScreen(context);
     } on Exception catch (e) {
       EasyLoading.showError(
