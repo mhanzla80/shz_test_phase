@@ -10,9 +10,9 @@ class Hospital {
   final String phoneNo;
   final String address;
   final String aboutHospital;
-  final bool? isAccepted;
+  bool? isAccepted;
 
-  const Hospital({
+  Hospital({
     required this.id,
     required this.hospitalName,
     required this.email,

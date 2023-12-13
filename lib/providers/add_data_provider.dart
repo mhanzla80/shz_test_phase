@@ -26,6 +26,7 @@ class AddDataProvider extends ChangeNotifier {
         fromFirestore: (snapshot, _) => Appointment.fromJson(snapshot.data()!),
         toFirestore: (appointment, _) => appointment.toJson(),
       );
+
   List<String>? allChildren;
   List<String>? allHospitals;
 
@@ -94,13 +95,15 @@ class AddDataProvider extends ChangeNotifier {
     return false;
   }
 
-  Future<bool> acceptHospital(Hospital hospital) async {
+  Future<bool> acceptRejectHospital(Hospital hospital, bool isAccepted) async {
     EasyLoading.show();
+    hospital.isAccepted = isAccepted;
     await _hospitals.doc(hospital.id).update(hospital.toJson()).then((value) {
-      EasyLoading.showSuccess("Appointment Booked Successfully");
+      EasyLoading.showSuccess("Hospital Status Updated Successfully");
       return true;
     }).catchError((error) {
-      EasyLoading.showError("Appointment failed to Book.\n${error.toString()}");
+      EasyLoading.showError(
+          "Hospital Status failed to Updated.\n${error.toString()}");
       return false;
     });
     return false;

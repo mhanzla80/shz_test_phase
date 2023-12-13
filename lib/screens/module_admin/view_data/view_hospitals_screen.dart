@@ -64,12 +64,12 @@ class ViewHospitalsScreen extends StatelessWidget {
         Row(
           children: [
             ElevatedButton(
-              onPressed: () => provider.acceptHospital(hospital),
+              onPressed: () => provider.acceptRejectHospital(hospital, true),
               style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
               child: const Text('Accept'),
             ),
             ElevatedButton(
-              onPressed: () => provider.acceptHospital(hospital),
+              onPressed: () => provider.acceptRejectHospital(hospital, false),
               style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
               child: const Text('Reject'),
             ),
