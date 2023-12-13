@@ -61,7 +61,7 @@ class ViewChildrenScreen extends StatelessWidget {
 
     // Query to retrieve children where the 'email' field matches the provided email
     final querySnapshot = await childrenCollection
-        .where('reference', isEqualTo: PrefsStorage.instance.user?.email)
+        .where('parentEmail', isEqualTo: PrefsStorage.instance.user?.email)
         .get();
 
     // Process the retrieved documents

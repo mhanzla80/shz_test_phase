@@ -59,15 +59,25 @@ class ViewHospitalsScreen extends StatelessWidget {
     final user = context.read<UserProvider>().user;
     final provider = context.read<AddDataProvider>();
 
-    if (user != null && user.role == Role.admin) {
-      return [
+    return [
+      ElevatedButton(
+        onPressed: () {},
+        style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.green,
+            padding: const EdgeInsets.symmetric(horizontal: 20)),
+        child: const Text('View Details'),
+      ),
+      if ((user != null && user.role == Role.admin) &&
+          (hospital.isAccepted == null || hospital.isAccepted == false))
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
               onPressed: () => provider.acceptRejectHospital(hospital, true),
               style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
               child: const Text('Accept'),
             ),
+            const SizedBox(width: 20),
             ElevatedButton(
               onPressed: () => provider.acceptRejectHospital(hospital, false),
               style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
@@ -75,10 +85,7 @@ class ViewHospitalsScreen extends StatelessWidget {
             ),
           ],
         ),
-      ];
-    }
-
-    return [];
+    ];
   }
 
   Future<List<Hospital>> _getHospital() async {
