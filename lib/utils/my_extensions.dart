@@ -1,4 +1,6 @@
-import 'package:playon/all_utils.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:playon/widgets/text_widgets.dart';
 
 extension StringExtension on String {
   MyText toText({
@@ -11,7 +13,6 @@ extension StringExtension on String {
     Color? color,
     double letterSpacing = 0,
     TextDecoration? decoration,
-    TextOverflow? overflow,
   }) {
     return MyText(
       this,
@@ -24,7 +25,20 @@ extension StringExtension on String {
       fontWeight: fontWeight,
       letterSpacing: letterSpacing,
       decoration: decoration,
-      overflow: overflow,
     );
   }
+
+  String dateWithFormat(String format) =>
+      DateFormat(format).format(DateTime.parse(this));
+  String get formattedDate => DateFormat.yMMMd().format(DateTime.parse(this));
+  String get formattedTime => DateFormat.jm().format(DateTime.parse(this));
+}
+
+extension DateTimeExtension on DateTime {
+  DateTime applyDate(DateTime date) =>
+      DateTime(date.year, date.month, date.day, hour, minute);
+  DateTime applyTime(TimeOfDay time) =>
+      DateTime(year, month, day, time.hour, time.minute);
+  TimeOfDay get timeOfDay => TimeOfDay(hour: hour, minute: minute);
+  DateTime get dateOnly => DateTime(year, month, day);
 }

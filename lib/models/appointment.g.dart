@@ -13,6 +13,7 @@ Appointment _$AppointmentFromJson(Map<String, dynamic> json) => Appointment(
       parentName: json['parentName'] as String,
       phoneNo: json['phoneNo'] as String,
       reference: json['reference'] as String,
+      appDate: json['appDate'] as String,
     );
 
 Map<String, dynamic> _$AppointmentToJson(Appointment instance) =>
@@ -23,4 +24,5 @@ Map<String, dynamic> _$AppointmentToJson(Appointment instance) =>
       'parentName': instance.parentName,
       'phoneNo': instance.phoneNo,
       'reference': instance.reference,
+      'appDate': instance.appDate,
     };

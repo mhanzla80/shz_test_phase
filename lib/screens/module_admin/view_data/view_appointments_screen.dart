@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
+import 'package:playon/all_utils.dart';
 import 'package:playon/models/appointment.dart';
-import 'package:playon/utils/storage/prefs_storage.dart';
 
 class ViewAppointmentsScreen extends StatelessWidget {
   static const String routeName = "/ViewAppointmentsScreen";
@@ -39,9 +38,40 @@ class ViewAppointmentsScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(20),
                 itemCount: data.length,
                 itemBuilder: (ctx, index) {
+                  final appointmentDetails = data[index];
+
                   return Card(
-                    child: ListTile(
-                      title: Text(data[index].childName),
+                    child: ExpansionTile(
+                      title: Text(appointmentDetails.childName),
+                      children: [
+                        ListTile(
+                          dense: true,
+                          title: const Text('Hospital Name'),
+                          trailing: Text(appointmentDetails.hospital),
+                        ),
+                        ListTile(
+                          dense: true,
+                          title: const Text('Parent Name'),
+                          trailing: Text(appointmentDetails.parentName),
+                        ),
+                        ListTile(
+                          dense: true,
+                          title: const Text('Phone No'),
+                          trailing: Text(appointmentDetails.phoneNo),
+                        ),
+                        ListTile(
+                          dense: true,
+                          title: const Text('App. Date'),
+                          trailing:
+                              Text(appointmentDetails.appDate.formattedDate),
+                        ),
+                        ListTile(
+                          dense: true,
+                          title: const Text('App. Time'),
+                          trailing:
+                              Text(appointmentDetails.appDate.formattedTime),
+                        ),
+                      ],
                     ),
                   );
                 },

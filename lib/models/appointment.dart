@@ -10,6 +10,7 @@ class Appointment {
   final String parentName;
   final String phoneNo;
   final String reference;
+  final String appDate;
 
   const Appointment({
     required this.id,
@@ -18,6 +19,7 @@ class Appointment {
     required this.parentName,
     required this.phoneNo,
     required this.reference,
+    required this.appDate,
   });
 
   factory Appointment.fromJson(Map<String, dynamic> json) =>

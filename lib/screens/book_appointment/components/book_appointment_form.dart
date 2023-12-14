@@ -4,6 +4,7 @@ import 'package:playon/models/child_data_model.dart';
 import 'package:playon/models/hospital.dart';
 import 'package:playon/providers/add_data_provider.dart';
 import 'package:playon/utils/storage/prefs_storage.dart';
+import 'package:playon/widgets/date_time_field.dart';
 import 'package:playon/widgets/my_elevated_button.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
@@ -19,6 +20,7 @@ class _BookAppointmentFormState extends State<BookAppointmentForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   ChildDataModel? _selectedChildName;
   Hospital? _selectedHospitalName;
+  DateTime selectedDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +69,8 @@ class _BookAppointmentFormState extends State<BookAppointmentForm> {
             onChanged: (val) => setState(() => _selectedHospitalName = val),
           ),
           const SizedBox(height: 20),
+          DateTimeField(onDateTimeChanged: (date) => selectedDate = date),
+          const SizedBox(height: 20),
           MyElevatedButton(onTap: _onTapMoveToNext, title: 'Book Appointment'),
         ],
       ),
@@ -84,6 +88,7 @@ class _BookAppointmentFormState extends State<BookAppointmentForm> {
         parentName: PrefsStorage.instance.user?.name ?? '',
         phoneNo: PrefsStorage.instance.user?.phone ?? '',
         reference: PrefsStorage.instance.user?.email ?? '',
+        appDate: selectedDate.toIso8601String(),
       );
       final isSuccessful = await provider.bookAppointment(appointment);
       if (mounted && isSuccessful) Navigator.pop(context);
