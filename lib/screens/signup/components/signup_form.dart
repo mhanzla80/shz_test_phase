@@ -21,6 +21,7 @@ class _SignupFormState extends State<SignupForm> {
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   Role? role;
+  static const roles = [Role.hospital, Role.parent];
 
   @override
   void dispose() {
@@ -65,7 +66,7 @@ class _SignupFormState extends State<SignupForm> {
             isDense: true,
             hint: const Text('Choose a role'),
             value: role,
-            items: Role.values
+            items: roles
                 .map(
                   (d) => DropdownMenuItem(
                     value: d,
