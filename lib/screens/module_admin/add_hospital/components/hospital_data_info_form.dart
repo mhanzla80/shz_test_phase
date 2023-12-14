@@ -7,7 +7,8 @@ import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
 class HospitalDataForm extends StatefulWidget {
-  const HospitalDataForm({Key? key}) : super(key: key);
+  final Hospital? hospital;
+  const HospitalDataForm({Key? key, required this.hospital}) : super(key: key);
 
   @override
   State<HospitalDataForm> createState() => _HospitalDataFormState();
@@ -20,6 +21,18 @@ class _HospitalDataFormState extends State<HospitalDataForm> {
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _aboutHospital = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.hospital == null) return;
+
+    _hospitalNameController.text = widget.hospital?.hospitalName ?? '';
+    _emailController.text = widget.hospital?.email ?? '';
+    _phoneController.text = widget.hospital?.phoneNo ?? '';
+    _addressController.text = widget.hospital?.address ?? '';
+    _aboutHospital.text = widget.hospital?.aboutHospital ?? '';
+  }
 
   @override
   void dispose() {
@@ -98,7 +111,13 @@ class _HospitalDataFormState extends State<HospitalDataForm> {
   void _onTapMoveToNext() async {
     final provider = context.read<AddDataProvider>();
     if (_formKey.currentState!.validate()) {
-      final uniqueId = const Uuid().v4();
+      String uniqueId = '';
+      if (widget.hospital == null) {
+        uniqueId = const Uuid().v4();
+      } else {
+        uniqueId = widget.hospital!.id;
+      }
+
       final hospital = Hospital(
         id: uniqueId,
         hospitalName: _hospitalNameController.text,

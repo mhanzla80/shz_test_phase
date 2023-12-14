@@ -3,6 +3,7 @@ import 'package:playon/all_utils.dart';
 import 'package:playon/models/hospital.dart';
 import 'package:playon/models/role.dart';
 import 'package:playon/providers/add_data_provider.dart';
+import 'package:playon/screens/module_admin/add_hospital/hospital_data_entry_screen.dart';
 
 class ViewHospitalsScreen extends StatelessWidget {
   static const String routeName = "/ViewHospitalsScreen";
@@ -61,7 +62,9 @@ class ViewHospitalsScreen extends StatelessWidget {
 
     return [
       ElevatedButton(
-        onPressed: () {},
+        onPressed: () => Navigator.pushNamed(
+            context, AddHospitalScreen.routeName,
+            arguments: hospital),
         style: ElevatedButton.styleFrom(
             backgroundColor: Colors.green,
             padding: const EdgeInsets.symmetric(horizontal: 20)),

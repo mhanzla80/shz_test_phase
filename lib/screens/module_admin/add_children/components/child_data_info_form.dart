@@ -8,7 +8,8 @@ import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
 class ChildDataForm extends StatefulWidget {
-  const ChildDataForm({Key? key}) : super(key: key);
+  final ChildDataModel? childDataModel;
+  const ChildDataForm({Key? key, this.childDataModel}) : super(key: key);
 
   @override
   State<ChildDataForm> createState() => _ChildDataFormState();
@@ -23,6 +24,20 @@ class _ChildDataFormState extends State<ChildDataForm> {
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _ageController = TextEditingController();
   final TextEditingController _aboutYou = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.childDataModel == null) return;
+
+    _firstNameController.text = widget.childDataModel?.firstName ?? '';
+    _lastNameController.text = widget.childDataModel?.lastName ?? '';
+    _emailController.text = widget.childDataModel?.email ?? '';
+    _phoneController.text = widget.childDataModel?.phoneNo ?? '';
+    _addressController.text = widget.childDataModel?.address ?? '';
+    _ageController.text = widget.childDataModel?.age ?? '';
+    _aboutYou.text = widget.childDataModel?.aboutHim ?? '';
+  }
 
   @override
   void dispose() {
@@ -134,7 +149,13 @@ class _ChildDataFormState extends State<ChildDataForm> {
   void _onTapMoveToNext() async {
     final provider = context.read<AddDataProvider>();
     if (_formKey.currentState!.validate()) {
-      final uniqueId = const Uuid().v4();
+      String uniqueId = '';
+      if (widget.childDataModel == null) {
+        uniqueId = const Uuid().v4();
+      } else {
+        uniqueId = widget.childDataModel!.id;
+      }
+
       final childData = ChildDataModel(
         id: uniqueId,
         firstName: _firstNameController.text,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:playon/models/child_data_model.dart';
 import 'package:playon/providers/add_data_provider.dart';
 import 'package:playon/screens/module_admin/add_children/components/child_data_info_form.dart';
 import 'package:provider/provider.dart';
@@ -9,13 +10,16 @@ class AddChildScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final savedData =
+        ModalRoute.of(context)?.settings.arguments as ChildDataModel;
+
     return Scaffold(
       appBar: AppBar(title: const Text('Add Children')),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Consumer<AddDataProvider>(
           builder: (_, provider, __) {
-            return const ChildDataForm();
+            return ChildDataForm(childDataModel: savedData);
           },
         ),
       ),

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:playon/all_utils.dart';
 import 'package:playon/models/child_data_model.dart';
+import 'package:playon/screens/module_admin/add_children/children_data_entry_screen.dart';
 
 class ViewChildrenScreen extends StatelessWidget {
   static const String routeName = "/ViewChildrenScreen";
@@ -34,7 +35,11 @@ class ViewChildrenScreen extends StatelessWidget {
                 itemBuilder: (ctx, index) {
                   return Card(
                     child: ListTile(
+                      onTap: () => Navigator.pushNamed(
+                          context, AddChildScreen.routeName,
+                          arguments: data[index]),
                       title: Text(data[index].firstName),
+                      trailing: const Icon(Icons.arrow_forward_ios_rounded),
                     ),
                   );
                 },
