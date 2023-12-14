@@ -58,8 +58,13 @@ class SignupButton extends StatelessWidget {
             context.read<UserProvider>().updateUser(localUser);
 
             EasyLoading.dismiss();
-            if (role == Role.admin)
+            if (role == Role.admin) {
               Navigator.pushReplacementNamed(context, AdminTabScreen.routeName);
+            } else if (role == Role.hospital) {
+              Navigator.pushReplacementNamed(context, AdminTabScreen.routeName);
+            } else if (role == Role.parent) {
+              Navigator.pushReplacementNamed(context, AdminTabScreen.routeName);
+            }
           } else {
             EasyLoading.dismiss();
             EasyLoading.showError('Could not login, please try again.');

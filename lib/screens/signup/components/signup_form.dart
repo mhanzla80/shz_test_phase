@@ -55,13 +55,13 @@ class _SignupFormState extends State<SignupForm> {
           ),
           const VerticalSpacing(),
           LabeledTextField(controller: _nameController, label: 'Name'),
-          const VerticalSpacing(of: 30),
+          const VerticalSpacing(of: 10),
           LabeledTextField(
             controller: _emailController,
             label: 'Email',
             keyboardType: TextInputType.emailAddress,
           ),
-          const VerticalSpacing(of: 30),
+          const VerticalSpacing(of: 10),
           DropdownButtonFormField<Role>(
             isDense: true,
             hint: const Text('Choose a role'),
@@ -76,19 +76,19 @@ class _SignupFormState extends State<SignupForm> {
                 .toList(),
             onChanged: (val) => setState(() => role = val),
           ),
-          const VerticalSpacing(of: 30),
+          const VerticalSpacing(of: 10),
           LabeledTextField(
             controller: _phoneController,
             label: 'Phone',
             keyboardType: TextInputType.phone,
           ),
-          const VerticalSpacing(of: 30),
+          const VerticalSpacing(of: 10),
           LabeledTextField(
             controller: _passwordController,
             label: 'Password',
             obscure: true,
           ),
-          const VerticalSpacing(of: 30),
+          const VerticalSpacing(of: 10),
           LabeledTextField(
             controller: _confirmPasswordController,
             label: 'Confirm Password',

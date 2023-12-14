@@ -1,5 +1,6 @@
 import 'package:playon/all_screens.dart';
 import 'package:playon/all_utils.dart';
+import 'package:playon/models/role.dart';
 import 'package:playon/providers/add_data_provider.dart';
 import 'package:playon/screens/module_admin/tab/admin_tab_screen.dart';
 
@@ -31,9 +32,14 @@ class _LoadingDataWidgetState extends State<LoadingDataWidget> {
   }
 
   void _moveToNextScreen(BuildContext context) async {
-    if (context.read<UserProvider>().user == null) {
+    final user = context.read<UserProvider>().user;
+    if (user == null) {
       Navigator.pushReplacementNamed(context, LoginScreen.routeName);
-    } else {
+    } else if (user.role == Role.admin) {
+      Navigator.pushReplacementNamed(context, AdminTabScreen.routeName);
+    } else if (user.role == Role.hospital) {
+      Navigator.pushReplacementNamed(context, AdminTabScreen.routeName);
+    } else if (user.role == Role.parent) {
       Navigator.pushReplacementNamed(context, AdminTabScreen.routeName);
     }
   }

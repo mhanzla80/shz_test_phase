@@ -51,8 +51,13 @@ class LoginButton extends StatelessWidget {
             userRepository.update(user.email, {});
             provider.updateUser(updatedUser);
             EasyLoading.dismiss();
-            if (updatedUser.role == Role.admin)
+            if (updatedUser.role == Role.admin) {
               Navigator.pushReplacementNamed(context, AdminTabScreen.routeName);
+            } else if (user.role == Role.hospital) {
+              Navigator.pushReplacementNamed(context, AdminTabScreen.routeName);
+            } else if (user.role == Role.parent) {
+              Navigator.pushReplacementNamed(context, AdminTabScreen.routeName);
+            }
           }
         } else {
           EasyLoading.dismiss();
