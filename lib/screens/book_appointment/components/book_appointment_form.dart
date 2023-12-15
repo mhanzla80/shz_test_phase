@@ -84,11 +84,13 @@ class _BookAppointmentFormState extends State<BookAppointmentForm> {
       final appointment = Appointment(
         id: uniqueId,
         childName: _selectedChildName?.firstName ?? '',
-        hospital: _selectedHospitalName?.hospitalName ?? '',
+        hospitalName: _selectedHospitalName?.hospitalName ?? '',
+        hospitalEmail: _selectedHospitalName?.email ?? '',
         parentName: PrefsStorage.instance.user?.name ?? '',
         phoneNo: PrefsStorage.instance.user?.phone ?? '',
         reference: PrefsStorage.instance.user?.email ?? '',
         appDate: selectedDate.toIso8601String(),
+        status: AppointmentStatus.pending,
       );
       final isSuccessful = await provider.bookAppointment(appointment);
       if (mounted && isSuccessful) Navigator.pop(context);

@@ -28,6 +28,10 @@ extension StringExtension on String {
     );
   }
 
+  DateTime toDateTime() {
+    return DateTime.parse(this);
+  }
+
   String dateWithFormat(String format) =>
       DateFormat(format).format(DateTime.parse(this));
   String get formattedDate => DateFormat.yMMMd().format(DateTime.parse(this));
@@ -42,3 +46,5 @@ extension DateTimeExtension on DateTime {
   TimeOfDay get timeOfDay => TimeOfDay(hour: hour, minute: minute);
   DateTime get dateOnly => DateTime(year, month, day);
 }
+
+extension Iso8601StringToDateTime on String {}

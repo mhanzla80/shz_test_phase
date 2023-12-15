@@ -1,13 +1,14 @@
 import 'package:playon/all_utils.dart';
+import 'package:playon/models/role.dart';
 import 'package:playon/screens/book_appointment/book_appointment_screen.dart';
 import 'package:playon/screens/login/login_screen.dart';
 import 'package:playon/screens/module_admin/add_children/children_data_entry_screen.dart';
 import 'package:playon/screens/module_admin/add_hospital/hospital_data_entry_screen.dart';
 import 'package:playon/screens/module_admin/tab/components/add_floating_action_button.dart';
 import 'package:playon/screens/module_admin/tab/components/my_bottom_navigation_bar.dart';
-import 'package:playon/screens/module_admin/view_data/view_appointments_screen.dart';
 import 'package:playon/screens/module_admin/view_data/view_children_screen.dart';
 import 'package:playon/screens/module_admin/view_data/view_hospitals_screen.dart';
+import 'package:playon/screens/module_hospital/view_appointments/view_appointments_screen.dart';
 import 'package:playon/widgets/my_elevated_button.dart';
 
 class AdminTabScreen extends StatefulWidget {
@@ -23,12 +24,16 @@ class _AdminTabScreenState extends State<AdminTabScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final user = PrefsStorage.instance.user;
     return Scaffold(
       body: SafeArea(
         child: IndexedStack(
           index: _selectedIndex,
           children: [
-            const HomeScreen(),
+            if (user?.role == Role.admin)
+              const AdminHomeScreen()
+            else if (user?.role == Role.hospital)
+              const HospitalHomeScreen(),
             Center(
               child: MyElevatedButton(
                 onTap: () async {
@@ -90,8 +95,8 @@ class _AdminTabScreenState extends State<AdminTabScreen> {
       );
 }
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class AdminHomeScreen extends StatelessWidget {
+  const AdminHomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -119,6 +124,37 @@ class HomeScreen extends StatelessWidget {
                 title: const Text('View Hospitals'),
                 trailing: const Icon(Icons.arrow_forward_ios_rounded),
               ),
+              ListTile(
+                onTap: () {
+                  Navigator.pushNamed(
+                      context, ViewAppointmentsScreen.routeName);
+                },
+                title: const Text('View Appointments'),
+                trailing: const Icon(Icons.arrow_forward_ios_rounded),
+              ),
+            ],
+          ).toList(),
+        ),
+      ),
+    );
+  }
+}
+
+class HospitalHomeScreen extends StatelessWidget {
+  const HospitalHomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Card(
+        margin: const EdgeInsets.all(20),
+        color: Colors.grey.shade200,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: ListTile.divideTiles(
+            context: context,
+            color: Colors.grey,
+            tiles: [
               ListTile(
                 onTap: () {
                   Navigator.pushNamed(

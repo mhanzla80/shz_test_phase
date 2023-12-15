@@ -30,12 +30,29 @@ class AddDataProvider extends ChangeNotifier {
 
   List<ChildDataModel>? allChildren;
   List<Hospital>? allHospitals;
+  List<Appointment>? allAppointments;
 
   Future<List<Hospital>?> getAllHospitals() async {
+    final isHospital = PrefsStorage.instance.user?.role == Role.hospital;
+    final List<Hospital> hospitals = [];
+
     final snapshot = await _hospitals.get();
-    final docs = snapshot.docs;
+    if (!isHospital) {
+      final docs = snapshot.docs;
+      if (docs.isNotEmpty) {
+        for (int i = 0; i < docs.length; i++) {
+          hospitals.add(docs[i].data());
+        }
+        return hospitals;
+      }
+    }
+
+    final docs = snapshot.docs
+        .where((element) =>
+            element.data().email == PrefsStorage.instance.user?.email)
+        .toList();
+
     if (docs.isNotEmpty) {
-      final List<Hospital> hospitals = [];
       for (int i = 0; i < docs.length; i++) {
         hospitals.add(docs[i].data());
       }
@@ -90,6 +107,18 @@ class AddDataProvider extends ChangeNotifier {
       return true;
     }).catchError((error) {
       EasyLoading.showError("Hospital couldn't be added.\n${error.toString()}");
+      return false;
+    });
+    return false;
+  }
+
+  Future<bool> updateAppStatus(Appointment appointment) async {
+    EasyLoading.show();
+    await _bookAppointment.doc(appointment.id).set(appointment).then((value) {
+      EasyLoading.showSuccess("Status updated");
+      return true;
+    }).catchError((error) {
+      EasyLoading.showError("Status couldn't be update.\n${error.toString()}");
       return false;
     });
     return false;

@@ -1,8 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:playon/all_utils.dart';
+import 'package:playon/models/hospital.dart';
 import 'package:playon/models/role.dart';
+import 'package:playon/providers/add_data_provider.dart';
 import 'package:playon/screens/module_admin/tab/admin_tab_screen.dart';
 import 'package:playon/widgets/my_elevated_button.dart';
+import 'package:uuid/uuid.dart';
 
 class SignupButton extends StatelessWidget {
   final GlobalKey<FormState> formKey;
@@ -54,13 +57,27 @@ class SignupButton extends StatelessWidget {
               phone: phoneController.text,
               role: role,
             );
+
             userRepository.add(localUser);
             context.read<UserProvider>().updateUser(localUser);
+            final addDataProvider = context.read<AddDataProvider>();
 
             EasyLoading.dismiss();
             if (role == Role.admin) {
               Navigator.pushReplacementNamed(context, AdminTabScreen.routeName);
             } else if (role == Role.hospital) {
+              final uniqueId = const Uuid().v4();
+
+              final hospital = Hospital(
+                id: uniqueId,
+                hospitalName: localUser.name ?? '',
+                email: localUser.email,
+                phoneNo: localUser.phone ?? '',
+                address: '',
+                aboutHospital: '',
+              );
+
+              await addDataProvider.addHospitalToDB(hospital);
               Navigator.pushReplacementNamed(context, AdminTabScreen.routeName);
             } else if (role == Role.parent) {
               Navigator.pushReplacementNamed(context, AdminTabScreen.routeName);

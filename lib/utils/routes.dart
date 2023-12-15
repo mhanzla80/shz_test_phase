@@ -4,9 +4,9 @@ import 'package:playon/screens/book_appointment/book_appointment_screen.dart';
 import 'package:playon/screens/module_admin/add_children/children_data_entry_screen.dart';
 import 'package:playon/screens/module_admin/add_hospital/hospital_data_entry_screen.dart';
 import 'package:playon/screens/module_admin/tab/admin_tab_screen.dart';
-import 'package:playon/screens/module_admin/view_data/view_appointments_screen.dart';
 import 'package:playon/screens/module_admin/view_data/view_children_screen.dart';
 import 'package:playon/screens/module_admin/view_data/view_hospitals_screen.dart';
+import 'package:playon/screens/module_hospital/view_appointments/view_appointments_screen.dart';
 
 final Map<String, WidgetBuilder> routes = {
   SplashScreen.routeName: (context) => const SplashScreen(),
