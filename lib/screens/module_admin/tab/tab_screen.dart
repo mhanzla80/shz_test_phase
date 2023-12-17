@@ -9,6 +9,7 @@ import 'package:playon/screens/module_admin/view_data/view_children_screen.dart'
 import 'package:playon/screens/module_admin/view_data/view_hospitals_screen.dart';
 import 'package:playon/screens/module_hospital/view_appointments/view_appointments_screen.dart';
 import 'package:playon/screens/module_parent/profile/parent_profile.dart';
+import 'package:playon/screens/notification/notification_screen.dart';
 import 'package:playon/widgets/my_elevated_button.dart';
 
 class TabScreen extends StatefulWidget {
@@ -175,6 +176,13 @@ class ParentHomeScreen extends StatelessWidget {
                       context, ViewAppointmentsScreen.routeName);
                 },
                 title: const Text('View Appointments'),
+                trailing: const Icon(Icons.arrow_forward_ios_rounded),
+              ),
+              ListTile(
+                onTap: () {
+                  Navigator.pushNamed(context, NotificationScreen.routeName);
+                },
+                title: const Text('Set Reminders'),
                 trailing: const Icon(Icons.arrow_forward_ios_rounded),
               ),
             ],
