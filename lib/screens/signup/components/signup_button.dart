@@ -3,7 +3,7 @@ import 'package:playon/all_utils.dart';
 import 'package:playon/models/hospital.dart';
 import 'package:playon/models/role.dart';
 import 'package:playon/providers/add_data_provider.dart';
-import 'package:playon/screens/module_admin/tab/admin_tab_screen.dart';
+import 'package:playon/screens/module_admin/tab/tab_screen.dart';
 import 'package:playon/widgets/my_elevated_button.dart';
 import 'package:uuid/uuid.dart';
 
@@ -63,8 +63,8 @@ class SignupButton extends StatelessWidget {
             final addDataProvider = context.read<AddDataProvider>();
 
             EasyLoading.dismiss();
-            if (role == Role.admin) {
-              Navigator.pushReplacementNamed(context, AdminTabScreen.routeName);
+            if (role == Role.admin || role == Role.parent) {
+              Navigator.pushReplacementNamed(context, TabScreen.routeName);
             } else if (role == Role.hospital) {
               final uniqueId = const Uuid().v4();
 
@@ -78,9 +78,9 @@ class SignupButton extends StatelessWidget {
               );
 
               await addDataProvider.addHospitalToDB(hospital);
-              Navigator.pushReplacementNamed(context, AdminTabScreen.routeName);
+              Navigator.pushReplacementNamed(context, TabScreen.routeName);
             } else if (role == Role.parent) {
-              Navigator.pushReplacementNamed(context, AdminTabScreen.routeName);
+              Navigator.pushReplacementNamed(context, TabScreen.routeName);
             }
           } else {
             EasyLoading.dismiss();

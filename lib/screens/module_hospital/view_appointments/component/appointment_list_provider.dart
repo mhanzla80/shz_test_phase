@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:playon/models/appointment.dart';
+import 'package:playon/models/role.dart';
 import 'package:playon/utils/my_extensions.dart';
 import 'package:playon/utils/storage/prefs_storage.dart';
 
@@ -16,10 +17,16 @@ class AppointmentListProvider extends ChangeNotifier {
 
   Future<List<Appointment>> getAppointments() async {
     // Reference to your Firestore collection
+    String field = '';
+    if (PrefsStorage.instance.user?.role == Role.hospital) {
+      field = 'hospitalEmail';
+    } else if (PrefsStorage.instance.user?.role == Role.parent) {
+      field = 'reference';
+    }
 
     // Query to retrieve children where the 'email' field matches the provided email
     final querySnapshot = await _bookAppointment
-        .where('hospitalEmail', isEqualTo: PrefsStorage.instance.user?.email)
+        .where(field, isEqualTo: PrefsStorage.instance.user?.email)
         .get();
 
     // Process the retrieved documents

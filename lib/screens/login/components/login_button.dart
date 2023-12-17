@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:playon/all_utils.dart';
 import 'package:playon/models/role.dart';
-import 'package:playon/screens/module_admin/tab/admin_tab_screen.dart';
+import 'package:playon/screens/module_admin/tab/tab_screen.dart';
 import 'package:playon/widgets/my_elevated_button.dart';
 
 class LoginButton extends StatelessWidget {
@@ -52,11 +52,11 @@ class LoginButton extends StatelessWidget {
             provider.updateUser(updatedUser);
             EasyLoading.dismiss();
             if (updatedUser.role == Role.admin) {
-              Navigator.pushReplacementNamed(context, AdminTabScreen.routeName);
+              Navigator.pushReplacementNamed(context, TabScreen.routeName);
             } else if (user.role == Role.hospital) {
-              Navigator.pushReplacementNamed(context, AdminTabScreen.routeName);
+              Navigator.pushReplacementNamed(context, TabScreen.routeName);
             } else if (user.role == Role.parent) {
-              Navigator.pushReplacementNamed(context, AdminTabScreen.routeName);
+              Navigator.pushReplacementNamed(context, TabScreen.routeName);
             }
           }
         } else {

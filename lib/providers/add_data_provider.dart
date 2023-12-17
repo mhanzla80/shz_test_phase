@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:playon/all_utils.dart';
 import 'package:playon/models/appointment.dart';
 import 'package:playon/models/child_data_model.dart';
@@ -148,5 +149,24 @@ class AddDataProvider extends ChangeNotifier {
       return false;
     });
     return false;
+  }
+
+  void changePassword(String newPassword) async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    final user = auth.currentUser;
+
+    if (user != null) {
+      EasyLoading.show();
+      try {
+        await user.updatePassword(newPassword);
+        EasyLoading.showSuccess('Password changed successfully');
+      } catch (error) {
+        EasyLoading.showError('Password change failed: $error');
+        // Handle the error accordingly
+      }
+    } else {
+      EasyLoading.showError('No user signed in');
+      // Handle the case where no user is signed in
+    }
   }
 }

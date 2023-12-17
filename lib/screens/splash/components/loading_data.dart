@@ -2,7 +2,7 @@ import 'package:playon/all_screens.dart';
 import 'package:playon/all_utils.dart';
 import 'package:playon/models/role.dart';
 import 'package:playon/providers/add_data_provider.dart';
-import 'package:playon/screens/module_admin/tab/admin_tab_screen.dart';
+import 'package:playon/screens/module_admin/tab/tab_screen.dart';
 
 class LoadingDataWidget extends StatefulWidget {
   const LoadingDataWidget({super.key});
@@ -36,11 +36,11 @@ class _LoadingDataWidgetState extends State<LoadingDataWidget> {
     if (user == null) {
       Navigator.pushReplacementNamed(context, LoginScreen.routeName);
     } else if (user.role == Role.admin) {
-      Navigator.pushReplacementNamed(context, AdminTabScreen.routeName);
+      Navigator.pushReplacementNamed(context, TabScreen.routeName);
     } else if (user.role == Role.hospital) {
-      Navigator.pushReplacementNamed(context, AdminTabScreen.routeName);
+      Navigator.pushReplacementNamed(context, TabScreen.routeName);
     } else if (user.role == Role.parent) {
-      Navigator.pushReplacementNamed(context, AdminTabScreen.routeName);
+      Navigator.pushReplacementNamed(context, TabScreen.routeName);
     }
   }
 

@@ -11,7 +11,7 @@ class AddHospitalScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final savedHospital =
-        ModalRoute.of(context)?.settings.arguments as Hospital;
+        ModalRoute.of(context)?.settings.arguments as Hospital?;
 
     return Scaffold(
       appBar: AppBar(title: const Text('Add Children')),

@@ -11,7 +11,7 @@ class AddChildScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final savedData =
-        ModalRoute.of(context)?.settings.arguments as ChildDataModel;
+        ModalRoute.of(context)?.settings.arguments as ChildDataModel?;
 
     return Scaffold(
       appBar: AppBar(title: const Text('Add Children')),
