@@ -3,6 +3,7 @@ import 'package:playon/all_utils.dart';
 import 'package:playon/models/role.dart';
 import 'package:playon/providers/add_data_provider.dart';
 import 'package:playon/screens/module_admin/tab/tab_screen.dart';
+import 'package:playon/screens/notification/component/notification_manager.dart';
 
 class LoadingDataWidget extends StatefulWidget {
   const LoadingDataWidget({super.key});
@@ -22,6 +23,7 @@ class _LoadingDataWidgetState extends State<LoadingDataWidget> {
     final provider = context.read<AddDataProvider>();
     provider.allChildren = await provider.getAllChildren();
     provider.allHospitals = await provider.getAllHospitals();
+    await NotificationManager.instance.init();
 
     try {
       _moveToNextScreen(context);

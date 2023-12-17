@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:playon/all_screens.dart';
 import 'package:playon/all_utils.dart';
 import 'package:playon/providers/add_data_provider.dart';
+import 'package:playon/screens/notification/component/notification_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,6 +33,7 @@ class PlayOn extends StatelessWidget {
             providers: [
               ListenableProvider(create: (_) => UserProvider()),
               ListenableProvider(create: (_) => AddDataProvider()),
+              ListenableProvider(create: (_) => NotificationProvider()),
             ],
             child: MediaQuery(
               data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
