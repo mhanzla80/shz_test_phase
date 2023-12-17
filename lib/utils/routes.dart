@@ -8,6 +8,7 @@ import 'package:playon/screens/module_admin/view_data/view_children_screen.dart'
 import 'package:playon/screens/module_admin/view_data/view_hospitals_screen.dart';
 import 'package:playon/screens/module_hospital/view_appointments/view_appointments_screen.dart';
 import 'package:playon/screens/module_parent/change_password_screen.dart';
+import 'package:playon/screens/notification/notification_screen.dart';
 
 final Map<String, WidgetBuilder> routes = {
   SplashScreen.routeName: (context) => const SplashScreen(),
@@ -21,4 +22,5 @@ final Map<String, WidgetBuilder> routes = {
   ViewAppointmentsScreen.routeName: (context) => const ViewAppointmentsScreen(),
   ViewHospitalsScreen.routeName: (context) => const ViewHospitalsScreen(),
   ChangePasswordScreen.routeName: (context) => const ChangePasswordScreen(),
+  NotificationScreen.routeName: (context) => const NotificationScreen(),
 };

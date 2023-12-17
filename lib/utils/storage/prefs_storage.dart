@@ -1,4 +1,5 @@
 import 'package:playon/all_utils.dart';
+import 'package:playon/screens/notification/component/notification_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PrefsStorage implements IStorage {
@@ -14,8 +15,8 @@ class PrefsStorage implements IStorage {
   static late SharedPreferences _prefs;
 
   static const String _keyUser = 'user';
-  static const String _keyNotifications = 'notifications';
-  static const String _keyLastLocation = 'lastLocation';
+  static const _notificationId = 'NotificationId';
+  static const String _scheduleNotificationList = 'notifications';
 
   @override
   Future<void> init() async => _prefs = await SharedPreferences.getInstance();
@@ -37,4 +38,20 @@ class PrefsStorage implements IStorage {
   @override
   Future<bool> removeUser() => _prefs.remove(_keyUser);
 
+  Future<void> setScheduleNotificationList(
+          List<MyNotificationModel> notificationList) =>
+      _prefs.setString(_scheduleNotificationList, jsonEncode(notificationList));
+
+  List<MyNotificationModel> getScheduledNotificationList() {
+    final prefString = _prefs.getString(_scheduleNotificationList) ?? '';
+    if (prefString.isEmpty) return [];
+    final List<dynamic> decodedList = jsonDecode(prefString);
+    return MyNotificationModel.fromJsonList(decodedList);
+  }
+
+  Future<void> incrementNotificationId() =>
+      _prefs.setInt(_notificationId, getNotificationId() + 1);
+
+  int getNotificationId() => _prefs.getInt(_notificationId) ?? 0;
+  Future<void> removeNotification() => _prefs.remove(_scheduleNotificationList);
 }
