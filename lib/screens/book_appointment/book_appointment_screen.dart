@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:playon/all_utils.dart';
 import 'package:playon/providers/add_data_provider.dart';
 import 'package:playon/screens/book_appointment/components/book_appointment_form.dart';
-import 'package:provider/provider.dart';
 
 class BookAppointmentScreen extends StatelessWidget {
   static const String routeName = '/BookAppointmentScreen';

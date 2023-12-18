@@ -3,6 +3,7 @@ import 'package:playon/all_utils.dart';
 import 'package:playon/screens/book_appointment/book_appointment_screen.dart';
 import 'package:playon/screens/module_admin/add_children/children_data_entry_screen.dart';
 import 'package:playon/screens/module_admin/add_hospital/hospital_data_entry_screen.dart';
+import 'package:playon/screens/module_admin/pdf/appointment_pdf_view.dart';
 import 'package:playon/screens/module_admin/tab/tab_screen.dart';
 import 'package:playon/screens/module_admin/view_data/view_children_screen.dart';
 import 'package:playon/screens/module_admin/view_data/view_hospitals_screen.dart';
@@ -25,4 +26,5 @@ final Map<String, WidgetBuilder> routes = {
   ChangePasswordScreen.routeName: (context) => const ChangePasswordScreen(),
   NotificationScreen.routeName: (context) => const NotificationScreen(),
   ViewProfileScreen.routeName: (context) => const ViewProfileScreen(),
+  AppointmentPdfView.routeName: (context) => const AppointmentPdfView(),
 };

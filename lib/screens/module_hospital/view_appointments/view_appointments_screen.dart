@@ -1,5 +1,7 @@
 import 'package:playon/all_utils.dart';
 import 'package:playon/models/appointment.dart';
+import 'package:playon/models/role.dart';
+import 'package:playon/screens/module_admin/pdf/appointment_pdf_view.dart';
 import 'package:playon/screens/module_hospital/view_appointments/component/appointment_details_card.dart';
 import 'package:playon/screens/module_hospital/view_appointments/component/appointment_list_provider.dart';
 import 'package:playon/widgets/last_days_filter.dart';
@@ -39,7 +41,18 @@ class ViewAppointmentsScreen extends StatelessWidget {
 
                 final data = snapshot.data;
                 if (data != null && data.isNotEmpty) {
-                  return const AppointmentListView();
+                  return Column(
+                    children: [
+                      if (PrefsStorage.instance.user?.role == Role.admin)
+                        IconButton(
+                          onPressed: () => Navigator.pushNamed(
+                              context, AppointmentPdfView.routeName,
+                              arguments: data),
+                          icon: const Icon(Icons.picture_as_pdf_rounded),
+                        ),
+                      Expanded(child: const AppointmentListView()),
+                    ],
+                  );
                 } else {
                   return const Center(
                       child: Text(

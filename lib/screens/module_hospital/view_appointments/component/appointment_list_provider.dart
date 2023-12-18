@@ -20,7 +20,7 @@ class AppointmentListProvider extends ChangeNotifier {
     String field = '';
     if (PrefsStorage.instance.user?.role == Role.hospital) {
       field = 'hospitalEmail';
-    } else if (PrefsStorage.instance.user?.role == Role.parent) {
+    } else {
       field = 'reference';
     }
 
