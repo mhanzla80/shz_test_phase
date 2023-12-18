@@ -12,12 +12,6 @@ class UserProvider extends ChangeNotifier {
 
   Future<void> logout() async {
     await FirebaseAuth.instance.signOut();
-    if (user?.email != null) {
-      userRepository.update(
-        user!.email,
-        {'onlineStatus': false, 'fcmToken': null},
-      );
-    }
     user = null;
     storage.removeUser();
     notifyListeners();
