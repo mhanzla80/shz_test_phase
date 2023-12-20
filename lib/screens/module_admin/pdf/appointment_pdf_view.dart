@@ -1,10 +1,13 @@
 // import 'dart:typed_data';
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:playon/models/appointment.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class AppointmentPdfView extends StatelessWidget {
   static const String routeName = "/AppointmentPdfView";
@@ -17,23 +20,24 @@ class AppointmentPdfView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(),
-      body: FutureBuilder<Uint8List>(
+      body: FutureBuilder<File>(
         future: generateAppointmentDocument(appointments),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasError) {
               return Text('Error: ${snapshot.error}');
             } else if (snapshot.hasData) {
-              return Image(image: MemoryImage(snapshot.data!));
+              final data = snapshot.data;
+              return Center(child: SfPdfViewer.file(data!));
             }
           }
-          return const CircularProgressIndicator();
+          return const Center(child: CircularProgressIndicator());
         },
       ),
     );
   }
 
-  Future<Uint8List> generateAppointmentDocument(
+  Future<File> generateAppointmentDocument(
       List<Appointment> appointments) async {
     final pw.Document doc = pw.Document();
 
@@ -76,6 +80,10 @@ class AppointmentPdfView extends StatelessWidget {
       ),
     );
 
-    return doc.save();
+    final tempDir = await getTemporaryDirectory();
+
+    final file =
+        await File('${tempDir.path}/test.pdf').writeAsBytes(await doc.save());
+    return file;
   }
 }
